@@ -13,6 +13,7 @@ export class InputLitElement extends LitElement {
   constructor() {
     super();
     this.value = '';
+    this.onChangeKeyup = this.onChangeKeyup.bind(this);
   }
 
   render() {
@@ -55,7 +56,6 @@ export class InputLitElement extends LitElement {
   }
 
   onChangeKeyup(e) {
-    console.log(e.target.value);
     this.message = e.target.value;
     let event = new CustomEvent('poly-input-keyup', {
       detail: {
