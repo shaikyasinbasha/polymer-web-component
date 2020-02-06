@@ -23,14 +23,22 @@
   
   <div class="outer-area">
       <h1>OUTER Polymer area: <label></label></h1>    
+      <div><button onclick="loadData()">Update lit element</button></div>
   </div>
-  <input-lit-element></input-lit-element>
+  <input-lit-element type="text" value="Yasin" name="username"></input-lit-element>
+  <input-lit-element type="password" value="Yasin" name="password"></input-lit-element>
 
   
+  
   <script>
-    document.querySelector('input-lit-element').addEventListener('poly-input-keyup', function (e) {
-	  document.getElementsByTagName('label')[0].textContent = e.detail.value;
-	});
+    document.querySelector('input-lit-element').addEventListener('poly-input-keyup', (e)=>{
+      console.log(e.detail.name);
+      document.getElementsByTagName('label')[0].textContent = e.detail.value;
+    });
+    function loadData() {
+      console.log("load-data");
+      document.querySelector("input-lit-element").setAttribute("value", "SUOER COOL")
+    }
   </script>
 
 </body></html>

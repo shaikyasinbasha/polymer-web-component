@@ -5,16 +5,14 @@ export class InputLitElement extends LitElement {
  
   static get properties() {
     return {
-      message: { type: String },
-      pie: { type: Boolean }
+      value: { type: String, reflect: true },
+      type: { type: String, reflect: true },
+      name: { type: String, reflect: true }
     };
   }
   constructor() {
     super();
-
-    this.loadComplete = false;
-    this.message = 'Text Here';
-    this.pie = false;
+    this.value = '';
   }
 
   render() {
@@ -39,40 +37,30 @@ export class InputLitElement extends LitElement {
           border: 1px solid #ced4da;
           border-radius: .25rem;
           transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        }     
-        :host .polymer-container{
-          border: 5px solid red;
-          padding: 20px;
         }
       </style>
       <style>
         @import url('https://fonts.googleapis.com/css?family=Zhi+Mang+Xing&display=swap');
       </style>
 
-      <div class="polymer-container">
-        <h1>
-          Polymer Shadow Area: ${this.message}
-        </h1>
-        <div class="input-container"><input name="myinput"
-          type="text"
-          @keyup="${this.togglePie}" >
-        </div>
-
+             
+      <div class="input-container">
+        <input name="myinput"
+          type="${this.type}"
+          name="${this.name}"
+          value="${this.value}"
+          @keyup="${this.onChangeKeyup}" >
       </div>
-
     `;
   }
 
-  firstUpdated() {
-    const input = this.shadowRoot.querySelector('input');
-    input.focus();
-  }  
-  togglePie(e) {
+  onChangeKeyup(e) {
     console.log(e.target.value);
     this.message = e.target.value;
     let event = new CustomEvent('poly-input-keyup', {
       detail: {
-        value: e.target.value
+        value: e.target.value,
+        name: this.name
       }
     });
     this.dispatchEvent(event);
